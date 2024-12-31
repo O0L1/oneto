@@ -55,14 +55,11 @@ export default function Dashboard(){
     
 
 
-    function clear(){
-        localStorage.clear()
-    }
 
 
     return(
         <>
-        <button onClick={clear}>Clear</button>
+
         <section className='nav-section'>
             <nav className='nav-bar'>
                 <div className='date-wrapper'>
