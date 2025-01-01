@@ -147,7 +147,7 @@ export default function Current({setTodayHasPhoto, setNumOfPhotos, numOfPhotos, 
     },[])
     // Fetch image data from the server
     useEffect(() => {
-        axios.get("http://localhost:3000/api/data")
+        axios.get("https://onteto.vercel.app/api/data")
         .then(res=>{
             console.log("It worked",res.data[0].images)
         }).catch(err =>{
@@ -161,7 +161,7 @@ export default function Current({setTodayHasPhoto, setNumOfPhotos, numOfPhotos, 
 
     // Update data on the server
     const updateData = (newData) => {
-        axios.post('http://localhost:3000/api/data', newData)
+        axios.post('https://onteto.vercel.app/api/data', newData)
             .then((response) => {
                 setDataSaved(true)
                 localStorage.setItem("DATASAVED", true)

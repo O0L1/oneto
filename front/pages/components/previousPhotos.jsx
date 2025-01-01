@@ -20,7 +20,7 @@ export default function PreviousPhotos({numOfPhotos, dataSaved}){
     // Fetches Data
     useEffect(() => {
         console.log("Today has photo")
-        axios.get("http://localhost:3000/api/data")
+        axios.get("https://onteto.vercel.app/api/data")
         .then(res=>{
             // console.log("It worked",res.data[0].images)
 

@@ -33,7 +33,7 @@ export default function Dashboard(){
 
     // Fetches database
     function fetchDatabase(){
-        axios.get("http://localhost:3000/api/data")
+        axios.get("https://onteto.vercel.app/api/data")
         .then(res=>{
             let list = res.data[0].images
     
