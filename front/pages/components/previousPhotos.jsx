@@ -9,7 +9,7 @@ export default function PreviousPhotos({numOfPhotos, dataSaved}){
     const [prevPhotos, setPrevPhotos] = useState(()=>{
         let tempPhotos = localStorage.getItem("PREVPHOTOS")
         if(tempPhotos == null) return 
-        return tempPhotos
+        return JSON.parse(tempPhotos)
     })
     const [lastUrl, setLastUrl] = useState(()=>{
 
@@ -19,27 +19,19 @@ export default function PreviousPhotos({numOfPhotos, dataSaved}){
 
     // Fetches Data
     useEffect(() => {
-        console.log("Today has photo")
-        axios.get("https://onteto.vercel.app/api/data")
-        .then(res=>{
-            // console.log("It worked",res.data[0].images)
 
-            setPrevPhotos(res.data[0].images)
-            localStorage.setItem("PREVPHOTOS",res.data[0].images )
-            
-        }).catch(err =>{
-            console.log(err)
-        })
+        const storedPhotos = (localStorage.getItem("STORAGE"))
+        console.log("asihof", JSON.parse(storedPhotos))
+        setPrevPhotos(JSON.parse(storedPhotos))
+        // localStorage.setItem("PREVPHOTOS",JSON.stringify(storedPhotos))
     }, [dataSaved]);
 
     // Gets the last URL in the array
     useEffect(()=>{
+        console.log(numOfPhotos)
 
         if(prevPhotos){
-            const tempKeysList = Object.keys(prevPhotos)
-            const tempLength = Object.keys(prevPhotos).length
-            setLastUrl(tempKeysList[tempLength-1])
-
+            setLastUrl(prevPhotos.length -1)
         }
 
     },[prevPhotos])
@@ -50,7 +42,7 @@ export default function PreviousPhotos({numOfPhotos, dataSaved}){
 
         imgItems.forEach(img =>{
             img.addEventListener('click', (e)=>{
-                // console.log(e.target.dataset.key)
+                console.log(e.target.dataset.key)
 
                 setSelectedPic(e.target.dataset.key)
 
@@ -92,10 +84,10 @@ export default function PreviousPhotos({numOfPhotos, dataSaved}){
                 </div>
                 <div className="previous-photos-wrapper" >
 
-                    {Object.keys(prevPhotos).map((keyName,i)=>(
-                        keyName!== lastUrl?(
-                        <img id={`imageItem-${i}`} className="grid-item image-item" data-key={keyName} src={prevPhotos[keyName]['URL']}/>
-                    ):null
+                    {prevPhotos.map((photo, index) => (
+                        index!== lastUrl?(
+                            <img id={`imageItem-${index}`} className="grid-item image-item" data-key={index} src={photo.URL}/>
+                        ):null
                     ))}
                 </div>
             </section>

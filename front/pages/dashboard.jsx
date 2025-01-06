@@ -33,17 +33,16 @@ export default function Dashboard(){
 
     // Fetches database
     function fetchDatabase(){
-        axios.get("https://onteto.vercel.app/api/data")
-        .then(res=>{
-            let list = res.data[0].images
-    
-            setNumOfPhotos(Object.values(list).length)
-            localStorage.setItem("PREVPHOTOS",Object.values(list).length )
+        
+        const storedPhotos = (localStorage.getItem("STORAGE"))
+        if(storedPhotos){
+            setNumOfPhotos(JSON.parse(storedPhotos.length))
+            localStorage.setItem("PREVPHOTOS",JSON.parse(storedPhotos.length))
             
-        }).catch(err =>{
-            console.log(err)
-        })
-
+        }else{
+            setNumOfPhotos(0)
+            localStorage.setItem("PREVPHOTOS",0 )
+        }
     }
 
     useEffect(() => {
@@ -53,13 +52,26 @@ export default function Dashboard(){
     // Changes the image ticker icon
 
     
+    function clear(){
+        console.log("clearrrr")
+        localStorage.clear()
+    }
 
-
-
+    function add(){
+        const storedPhotos = (localStorage.getItem("STORAGE"))
+        let dataList = []
+        if(storedPhotos){
+            dataList = JSON.parse(storedPhotos)
+        }
+        dataList.push({URL: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAA…FjrmON2l7wSv1+Wd0O8A3AO5hZxeKhI8AAAAASUVORK5CYII=', Title: 'fasd', Description: 'asdffasd', Date: ' 3/0/2025'})
+        localStorage.setItem("STORAGE",JSON.stringify(dataList))
+        console.log(JSON.parse(storedPhotos))
+    }
 
     return(
         <>
-
+        {/* <button onClick={add}>Add</button>
+        <button onClick={clear}>Clear</button> */}
         <section className='nav-section'>
             <nav className='nav-bar'>
                 <div className='date-wrapper'>

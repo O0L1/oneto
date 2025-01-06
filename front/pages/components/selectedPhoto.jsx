@@ -9,8 +9,8 @@ export default function SelectedPhoto({prevPhotos, selectedPic, setSelectedPic})
     // Finds the values attached to the key(date)
     useEffect(()=>{
         if(selectedPic){
-            console.log(prevPhotos[`${selectedPic}`])
-            setImgValues(prevPhotos[`${selectedPic}`])
+            console.log(prevPhotos[selectedPic])
+            setImgValues(prevPhotos[selectedPic])
 
             const body = document.body
             body.style.overflow = 'hidden'
@@ -51,7 +51,7 @@ export default function SelectedPhoto({prevPhotos, selectedPic, setSelectedPic})
                 <div className="selected-wrapper">
                     <img className="selected-img" src={imgValues.URL}></img>
                     <div className="selected-text">
-                        <h2 className="selected-date">{selectedPic}</h2>
+                        <h2 className="selected-date">{imgValues.Date}</h2>
                         <h2 className="selected-title">{imgValues.Title}</h2>
                         <h3 className="selected-desc">{imgValues.Description}</h3>
                     </div>

@@ -146,41 +146,33 @@ export default function Current({setTodayHasPhoto, setNumOfPhotos, numOfPhotos, 
         })
     },[])
     // Fetch image data from the server
-    useEffect(() => {
-        axios.get("https://onteto.vercel.app/api/data")
-        .then(res=>{
-            console.log("It worked",res.data[0].images)
-        }).catch(err =>{
-            console.log(err)
-        })
-    }, []);
 
 
 
 
 
-    // Update data on the server
-    const updateData = (newData) => {
-        axios.post('https://onteto.vercel.app/api/data', newData)
-            .then((response) => {
-                setDataSaved(true)
-                localStorage.setItem("DATASAVED", true)
-                setData(newData);  // Update state with new data
-                console.log("It worked")
-                window.location.reload()
-            })
-            .catch((error) => {
-                console.error('Error updating data:', error);
-            });
-    };
+
 
     // Handles the save button click
     function saveInfo(){
         if(saveBtnActive){
             const title = document.getElementById("currentTitle")
             const desc = document.getElementById("currentDesc")
-            const freshData = {"URL":todaysPhotoURL, "Title": title.value, "Description": desc.value}
-            updateData(freshData)
+            let date = new Date
+            date =` ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+            const freshData = {"URL":todaysPhotoURL, "Title": title.value, "Description": desc.value, "Date":date}
+
+
+            const storedPhotos = (localStorage.getItem("STORAGE"))
+            let dataList = []
+            if(storedPhotos){
+                dataList = JSON.parse(storedPhotos)
+            }
+            dataList.push(freshData)
+            localStorage.setItem("STORAGE",JSON.stringify(dataList))
+            setDataSaved(true)
+            localStorage.setItem("DATASAVED", true)
+            // console.log(JSON.parse(dataList))
         }
     }
 

@@ -16,7 +16,7 @@ export default function DayChange(){
         const allKeys = Object.keys(localStorage)
 
         for(let i=0; i<allKeys.length; i++){
-            if(allKeys[i] !== "ISLOGGEDIN"){
+            if(allKeys[i] !== "ISLOGGEDIN" && allKeys[i] !== "STORAGE"){
                 localStorage.removeItem(allKeys[i])
                 console.log(allKeys[i])
             }
